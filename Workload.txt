@@ -1,0 +1,8 @@
+HTML, Isaac
+CSS, Isaac
+JS:
+  Canvasing, Jeff
+  Drawing, Jeff
+  Psuedo-3D, Jeff
+  Game engine, Both
+  Mechanics, Isaac
