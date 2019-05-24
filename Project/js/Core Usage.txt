@@ -1,0 +1,70 @@
+Canvas:
+    Constants FPS, canvas width and height can be set in Main.js
+    Default:
+        FPS = 60
+        CANVAS_WIDTH = 1000;
+        CANVAS_HEIGHT = 600;
+
+Main:
+    updateList.push({f: function() {exampleFunction();}});
+    resetList.push({f: function() {exampleFunction();}});
+
+    resetGame();
+
+Key codes and input:
+
+    Calls function on event:
+
+        onMouseClickList.push({f: function() {exampleFunction();}});
+        onKeyPressedList.push({f: function() {exampleFunction();}, key: keyboard.KEY_A.code});
+        onKeyReleasedList.push({f: function() {exampleFunction();}, key: keyboard.KEY_A.code});
+
+    Keyboard:
+        Enum: keyboard.KEY_A.code
+        Held: keyboard.KEY_A.held
+    
+    Mouse:
+        Position: mousePos.x 
+                  mousePos.y
+        Enum: mouseButton.left.code;
+        Held: mouseButton.left.held;
+
+Graphics:
+
+    Calling other draw functions: 
+        drawList.push({f: function() {exampleFunction();}, lay: 1}); *
+        * (lowest layer value are drawn in front)
+
+    Functions:
+        (parameters with * are optional)
+
+        If optionals parameters are not defined, they will be defaulted to the following:
+            color: "white"
+            font: "20px Arial"
+            ang: 0
+            scaleX/scaleY: 1
+            alpha: 0
+
+        drawRect(x, y, width, height, color*)
+        drawCircle(x, y, radius, color*)
+        drawText(words, textX, textY, color*, font*)
+        drawImage(image, x, y, ang*, scaleX*, scaleY*, alpha*)
+
+        randomColor()*
+        *outputs random hexadecimal color code
+
+Images:
+    Images can be added through ImageList.js
+
+        imageList.push(
+           "images/1.png"
+           "images/2.png"
+           "images/3.png"
+        )
+    
+    The image variable will be automatically created with the same name as the file.
+    For example:
+        src: "images/ball1.png"
+        variable: ball1
+    
+    The variable is what should be used in the "image" parameter of the drawImage() function.
