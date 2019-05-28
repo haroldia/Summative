@@ -23,7 +23,7 @@ function cameraDraw() {
 	ctx.save(); 
 	ctx.translate(-camPanX,-camPanY);
     
-b
+
     //draws in order of layers (lowest layer are drawn in front)
     for (var i = 0; i < cameraDrawList.length; i++) {
         cameraDrawList[i].f();
