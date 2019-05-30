@@ -1,6 +1,6 @@
 updateList.push({f: () => updatePlayer()});
 resetList.push({f: () => resetPlayer()});
-drawList.push({f: () => drawPlayer, l: 1});
+drawList.push({f: () => drawPlayer(), l: 1});
 
 
 const PLAYER_SPEED = 5;
@@ -23,11 +23,12 @@ function drawPlayer() {
 
 class PlayerClass {
     constructor(x, y) {
+        this.x = x;
         this.y = y;
     }
 
     update() {
-        move();
+        this.move();
     }
 
     move() {
@@ -46,6 +47,7 @@ class PlayerClass {
     }
 
     draw() {
+        console.log(this.x, this.y);
         drawCircle(this.x, this.y, PLAYER_RAD, "red");
     }
 }
