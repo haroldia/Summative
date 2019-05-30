@@ -41,6 +41,3 @@ function resetGame() {
         resetList[i].f();
     }
 }
-
-
-
