@@ -24,22 +24,21 @@ window.onload = function() {
 
 function startGame() { //starts game (func called after images load)
 	setupInput();
-	setInterval(updateAll, 1000/FPS);  
+	setInterval(updateAll, 1000/FPS);
     resetGame();
 }
 
 function updateAll() {
-    if (!pause){
-        for (var i in updateList){
-            updateList[i].f();  
-        }
+  if (!pause){
+    for (var i in updateList){
+      updateList[i].f();
     }
-    
+  }
 }
 
 function resetGame() {
     for (var i in resetList) {
-        resetList[i].f();        
+        resetList[i].f();
     }
 }
 
