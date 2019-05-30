@@ -1,8 +1,13 @@
 HTML, Isaac
 CSS, Isaac
 JS:
+
+  Player, Jeff
+  Maps, Both
+
   Canvasing, Jeff
   Drawing, Jeff
-  Psuedo-3D, Jeff
   Game engine, Both
   Mechanics, Isaac
+
+
