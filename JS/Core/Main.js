@@ -1,4 +1,4 @@
-const FPS = 600;
+const FPS = 60;
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 
