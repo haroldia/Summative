@@ -1,4 +1,4 @@
-const FPS = 600;
+const FPS = 60;
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 
@@ -24,14 +24,14 @@ window.onload = function() {
 
 function startGame() { //starts game (func called after images load)
 	setupInput();
-	setInterval(updateAll, 1000/FPS);  
+	setInterval(updateAll, 1000/FPS);
     resetGame();
 }
 
 function updateAll() {
     if (!pause){
         for (var i in updateList){
-            updateList[i].f();  
+            updateList[i].f();
         }
     }
     
@@ -39,9 +39,6 @@ function updateAll() {
 
 function resetGame() {
     for (var i in resetList) {
-        resetList[i].f();        
+        resetList[i].f();
     }
 }
-
-
-
