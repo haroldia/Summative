@@ -1,4 +1,4 @@
-//add image sources here 
+// Add image sources here
 imageList.push(
 
-)
+);

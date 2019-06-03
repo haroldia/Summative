@@ -1,44 +1,41 @@
-//adds event listeners
-function setupInput() { 
-	document.addEventListener("keydown"    , keyPressedHandler );
-	document.addEventListener("keyup"      , keyReleasedHandler);
-	canvas  .addEventListener("mousemove"  , updateMousePos    );
-	document.addEventListener("mousedown"  , mouseDown         );
-	document.addEventListener("mouseup"    , mouseUp           );
-	document.addEventListener("click"      , click             );
-
-	//disables context menu
-	canvas.addEventListener("contextmenu", function(evt) {evt.preventDefault();});
+function setupInput() {  // Define a function
+	document.addEventListener("keydown"    , keyPressedHandler ); // Add listener for when a key is pressed
+	document.addEventListener("keyup"      , keyReleasedHandler); // Add listener for when a key is released
+	canvas  .addEventListener("mousemove"  , updateMousePos    ); // Add a listener for the the mouse is moved
+	document.addEventListener("mousedown"  , mouseDown         ); // Add a listener for when a mouse is pressed
+	document.addEventListener("mouseup"    , mouseUp           ); // Add a listener for when a mouse is released
+	document.addEventListener("click"      , click             ); // Add a listener for when a click occurs
+	
+	canvas.addEventListener("contextmenu", function(evt) {evt.preventDefault();}); // Disables context menu
 }
 
-var onKeyPressedList  = [];
-var onKeyReleasedList = [];
-var onMouseClickList  = [];
-var onMouseDownList  = [];
-var onMouseUpList  = [];
+var onKeyPressedList  = []; // Create an array for specific even handlers
+var onKeyReleasedList = []; // Create an array for specific even handlers
+var onMouseClickList  = []; // Create an array for specific even handlers
+var onMouseDownList   = []; // Create an array for specific even handlers
+var onMouseUpList     = []; // Create an array for specific even handlers
 
 
 
-function keyPressedHandler(evt){
-	for (var i in onKeyPressedList){
-		if (onKeyPressedList[i].key == undefined){
+function keyPressedHandler(evt){ // Define a function
+	for (var i in onKeyPressedList){ // For each index in onKeyPressedList
+		if (onKeyPressedList[i].key === undefined){
 			onKeyPressedList[i].f(evt.keyCode);
 		} else {
 			if (evt.keyCode == onKeyPressedList[i].key){
 				onKeyPressedList[i].f();
 			}
 		}
-        
 	}
     updateKeyHeldState(evt.keyCode, true);
 	
 	//prevents special keys from moving page
-	// evt.preventDefault(); 
+	// evt.preventDefault();
 }
 
 function keyReleasedHandler(evt){
 	for (var i in onKeyReleasedList){
-		if (onKeyReleasedList[i].key == undefined){
+		if (onKeyReleasedList[i].key === undefined){
 			onKeyReleasedList[i].f(evt.keyCode);
 		} else {
 			if (evt.keyCode == onKeyReleasedList[i].key){
@@ -73,7 +70,7 @@ function mouseDown(evt) {
 		}
 	}
 	for (var i in onMouseDownList){
-		if (onMouseDownList[i].but == undefined){
+		if (onMouseDownList[i].but === undefined){
 			onMouseDownList[i].f(evt.button);
 		} else {
 			if (evt.button == onMouseDownList[i].but){
@@ -91,7 +88,7 @@ function mouseUp(evt) {
 		}
 	}
 	for (var i in onMouseUpList){
-		if (onMouseUpList[i].but == undefined){
+		if (onMouseUpList[i].but === undefined){
 			onMouseUpList[i].f(evt.button);
 		} else {
 			if (evt.button == onMouseUpList[i].but){
@@ -104,6 +101,6 @@ function mouseUp(evt) {
 
 function click(evt) {
 	for (var i in onMouseClickList){
-        onMouseClickList[i].f();        
+        onMouseClickList[i].f();
     }
 }
