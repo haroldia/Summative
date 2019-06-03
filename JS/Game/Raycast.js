@@ -59,7 +59,8 @@ function findRay() {
     var nextA = {x: a.x, y: a.y};
     var nextB = {x: b.x, y: b.y};
 
-    var dist = 0;
+    var hit = {x: 0, y: 0};
+
     var wall = false;
     var cnt = 0;
 
@@ -74,6 +75,11 @@ function findRay() {
         } else {
             break;
         }
+    }
+
+    if (wall) {
+        console.log(hit.x, hit.y)
+        drawCircle(hit.x, hit.y, 10, "magenta")
     }
 
     function castX() {
@@ -96,6 +102,8 @@ function findRay() {
         if (worldGridCurrent[pixelToGridY(nextA.y)][pixelToGridX(nextA.x)] == 1) {
             drawCircle(gridToPixelX(pixelToGridX(nextA.x)) + 32, gridToPixelY(pixelToGridY(nextA.y)) + 32, 20, "orange");
             wall = true;
+            hit.x = nextA.x;
+            hit.y = nextA.y;
         }   
     }
 
@@ -118,6 +126,8 @@ function findRay() {
 
         if (worldGridCurrent[pixelToGridY(nextB.y)][pixelToGridX(nextB.x)] == 1) {
             wall = true;
+            hit.x = nextB.x;
+            hit.y = nextB.y;
         }
     }
 }
