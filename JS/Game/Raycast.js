@@ -1,4 +1,4 @@
-updateList.push({f: () => updateRay()});
+cameraDrawList.push({f: () => updateRay(), l: 0});
 
 const PLAYER_HEIGHT = 32;
 const PLAYER_FOV = 60;
@@ -82,20 +82,27 @@ function findRay() {
         drawCircle(hit.x, hit.y, 10, "magenta")
     }
 
+    for (var i = 0; i < 200; i++) {
+        let x = p.x + Math.cos(p.angRad) * 5 * i;
+        let y = p.y + Math.sin(p.angRad) * 5 * i;
+        if (distance(x, y, p.x, p.y) > distance(hit.x, hit.y, p.x, p.y)) {
+            drawCircle(x, y, 2, "yellow")
+        } else {
+            drawCircle(x, y, 2, "sienna")
+        }
+    }
+
     function castX() {
         drawCircle(nextA.x, nextA.y, 8, "Black");
 
         drawCircle(gridToPixelX(pixelToGridX(nextA.x)) + 32, gridToPixelY(pixelToGridY(nextA.y)) + 32, 20, "orange");
         drawText(cnt + ":" + pixelToGridX(nextA.x) + ":" + pixelToGridY(nextA.y), gridToPixelX(pixelToGridX(nextA.x)) + 32, gridToPixelY(pixelToGridY(nextA.y)) + 32, "Black");
 
-        nextA.x += xa;
-        nextA.y += ya;
-
-        if (pixelToGridY(nextA.y) < 0 || pixelToGridY(nextA.y) > MAP_ROWS) {
+        if (pixelToGridY(nextA.y) < 0 || pixelToGridY(nextA.y) >= MAP_ROWS) {
             return; 
         }
 
-        if (pixelToGridX(nextA.x) < 0 || pixelToGridX(nextA.x) > MAP_COLS) {
+        if (pixelToGridX(nextA.x) < 0 || pixelToGridX(nextA.x) >= MAP_COLS) {
             return; 
         }
 
@@ -104,7 +111,10 @@ function findRay() {
             wall = true;
             hit.x = nextA.x;
             hit.y = nextA.y;
-        }   
+        } 
+        
+        nextA.x += xa;
+        nextA.y += ya;
     }
 
     function castY() {
@@ -113,14 +123,11 @@ function findRay() {
         drawCircle(gridToPixelX(pixelToGridX(nextB.x)) + 32, gridToPixelY(pixelToGridY(nextB.y)) + 32, 15, "cyan");
         drawText(cnt + ":" + pixelToGridX(nextB.x) + ":" + pixelToGridY(nextB.y), gridToPixelX(pixelToGridX(nextB.x)) + 32, gridToPixelY(pixelToGridY(nextB.y)) + 32, "Black");
 
-        nextB.x += xb;
-        nextB.y += yb;
-
-        if (pixelToGridY(nextB.y) < 0 || pixelToGridY(nextB.y) > MAP_ROWS - 1) {
+        if (pixelToGridY(nextB.y) < 0 || pixelToGridY(nextB.y) >= MAP_ROWS) {
             return; 
         }
 
-        if (pixelToGridX(nextB.x) < 0 || pixelToGridX(nextB.x) > MAP_COLS) {
+        if (pixelToGridX(nextB.x) < 0 || pixelToGridX(nextB.x) >= MAP_COLS) {
             return; 
         }
 
@@ -129,6 +136,9 @@ function findRay() {
             hit.x = nextB.x;
             hit.y = nextB.y;
         }
+
+        nextB.x += xb;
+        nextB.y += yb;
     }
 }
 

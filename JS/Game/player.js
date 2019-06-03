@@ -1,6 +1,6 @@
 updateList.push({f: () => updatePlayer()});
 resetList.push({f: () => resetPlayer()});
-drawList.push({f: () => drawPlayer(), l: 1});
+cameraDrawList.push({f: () => drawPlayer(), l: 1});
 
 
 const PLAYER_SPEED = 5;
@@ -66,9 +66,7 @@ class PlayerClass {
         // for (var i = 0; i < 5; i++) {
         //     drawCircle(this.x + Math.cos(this.angRad) * 5 * i, this.y + Math.sin(this.angRad) * 5 * i, 5, "yellow")
         // }
-        for (var i = 0; i < 200; i++) {
-            drawCircle(this.x + Math.cos(this.angRad) * 5 * i, this.y + Math.sin(this.angRad) * 5 * i, 2, "yellow")
-        }
+        
         drawText(this.ang, 20, 20);
     }
 }
