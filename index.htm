@@ -5,9 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="CSS/Navbar.css">
+  <link rel="stylesheet" type="text/css" href="CSS/CanvasAlign.css">
 </head>
 <body>
-<!-- 
+ 
 <div id="Navbar">
   <ul>
     <li><a href="index.htm">Home</a></li>
@@ -20,9 +21,14 @@
     <!--</li>-->
   </ul>
 </div>
---
 
-<center><canvas id="gameCanvas"></canvas></center>
+<div class="col">
+  <canvas id="gameCanvas"></canvas>
+</div>
+
+<div class="col">
+  <canvas id="minimapCanvas"></canvas>
+</div>
 
 <!--Scripts-->
 <script src="JS/Core/Main.js"></script>
