@@ -10,15 +10,15 @@ function setupInput() {  // Define a function
 }
 
 var onKeyPressedList  = []; // Create an array for specific even handlers
-var onKeyReleasedList = []; // Create an array for specific even handlers
-var onMouseClickList  = []; // Create an array for specific even handlers
-var onMouseDownList   = []; // Create an array for specific even handlers
-var onMouseUpList     = []; // Create an array for specific even handlers
+var onKeyReleasedList = [];
+var onMouseClickList  = [];
+var onMouseDownList   = [];
+var onMouseUpList     = [];
 
 
 
 function keyPressedHandler(evt){ // Define a function
-	for (var i in onKeyPressedList){ // For each index in onKeyPressedList
+	for (var i in onKeyPressedList){ // For each index in onKeyPressedList call the function assigned to that key
 		if (onKeyPressedList[i].key === undefined){
 			onKeyPressedList[i].f(evt.keyCode);
 		} else {
@@ -33,7 +33,7 @@ function keyPressedHandler(evt){ // Define a function
 	// evt.preventDefault();
 }
 
-function keyReleasedHandler(evt){
+function keyReleasedHandler(evt){ // For each index in the onKeyReleasedList call the functino assigned to that key
 	for (var i in onKeyReleasedList){
 		if (onKeyReleasedList[i].key === undefined){
 			onKeyReleasedList[i].f(evt.keyCode);
@@ -42,13 +42,11 @@ function keyReleasedHandler(evt){
 				onKeyReleasedList[i].f();
 			}
 		}
-        
-
-    }
+  }
 	updateKeyHeldState(evt.keyCode, false);
 }
 
-function updateKeyHeldState(key, value) {
+function updateKeyHeldState(key, value) { // Runs the functinos for keys that are held down
 	for (var i in keyboard) {
 		if (keyboard[i].code == key) {
 			keyboard[i].held = value;
@@ -56,50 +54,49 @@ function updateKeyHeldState(key, value) {
 	}
 }
 
-function updateMousePos(evt) {
+function updateMousePos(evt) { // Updating the position of the mouse
 	var rect = canvas.getBoundingClientRect();
 	
 	mousePos.x = evt.clientX - rect.left;
 	mousePos.y = evt.clientY - rect.top;
 }
 
-function mouseDown(evt) {
+function mouseDown(evt) { // When a mmouse button is pressed, run its functions
 	for (var i in mouseButton) {
 		if (mouseButton[i].code == evt.button) {
 			mouseButton[i].held = true;
 		}
 	}
-	for (var i in onMouseDownList){
-		if (onMouseDownList[i].but === undefined){
-			onMouseDownList[i].f(evt.button);
+	for (var k in onMouseDownList){
+		if (onMouseDownList[k].but === undefined){
+			onMouseDownList[k].f(evt.button);
 		} else {
-			if (evt.button == onMouseDownList[i].but){
-				onMouseDownList[i].f();
+			if (evt.button == onMouseDownList[k].but){
+				onMouseDownList[k].f();
 			}
 		}
         
 	}
 }
 
-function mouseUp(evt) {
+function mouseUp(evt) { // When a mouse button is released, fun its functions
 	for (var i in mouseButton) {
 		if (mouseButton[i].code == evt.button) {
 			mouseButton[i].held = false;
 		}
 	}
-	for (var i in onMouseUpList){
-		if (onMouseUpList[i].but === undefined){
-			onMouseUpList[i].f(evt.button);
+	for (var k in onMouseUpList){
+		if (onMouseUpList[k].but === undefined){
+			onMouseUpList[k].f(evt.button);
 		} else {
 			if (evt.button == onMouseUpList[i].but){
-				onMouseUpList[i].f();
+				onMouseUpList[k].f();
 			}
 		}
-        
 	}
 }
 
-function click(evt) {
+function click(evt) { // Run click functions
 	for (var i in onMouseClickList){
         onMouseClickList[i].f();
     }
