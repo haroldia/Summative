@@ -1,11 +1,10 @@
 updateList.push({f: () => updatePlayer()});
 resetList.push({f: () => resetPlayer()});
-cameraDrawList.push({f: () => drawPlayer(), l: 1});
+drawList.push({f: () => drawPlayer(), l: 1});
 
 
 const PLAYER_SPEED = 5;
 const PLAYER_RAD = 10;
-const PLAYER_TURN_SPEED = 3
 
 
 var p;
@@ -55,19 +54,21 @@ class PlayerClass {
             this.y -= Math.sin(this.angRad) * PLAYER_SPEED;
         }
         if (keyboard.KEY_A.held) {
-            this.ang -= PLAYER_TURN_SPEED;
+            this.ang -= 2;
         }
         if (keyboard.KEY_D.held) {
-            this.ang += PLAYER_TURN_SPEED;
+            this.ang += 2;
         }
     }
 
     draw() {
         drawCircle(this.x, this.y, PLAYER_RAD, "red");
-        for (var i = 0; i < 5; i++) {
-            drawCircle(this.x + Math.cos(this.angRad) * 5 * i, this.y + Math.sin(this.angRad) * 5 * i, 5, "yellow")
+        // for (var i = 0; i < 5; i++) {
+        //     drawCircle(this.x + Math.cos(this.angRad) * 5 * i, this.y + Math.sin(this.angRad) * 5 * i, 5, "yellow")
+        // }
+        for (var i = 0; i < 200; i++) {
+            drawCircle(this.x + Math.cos(this.angRad) * 5 * i, this.y + Math.sin(this.angRad) * 5 * i, 2, "yellow")
         }
-        
         drawText(this.ang, 20, 20);
     }
 }

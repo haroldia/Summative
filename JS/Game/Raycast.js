@@ -6,6 +6,8 @@ const PLAYER_FOV = 60;
 const PROJECTION_PLANE_WIDTH = 320;
 const PROJECTION_PLANE_HEIGHT = 320;
 
+const MINI_SCAN_RES = 5
+const SCAN_RES = 0.5;
 //dimension of pp = 320 x 200
 //centre of pp = (160,100)
 // distance of pp = 277
@@ -21,40 +23,60 @@ var yb = 0;
 var xb = 0;
 
 function updateRay() {
-    findRay();
+    walls = [];
+    drawRectP(0, 54, 10, 10, "red");
+    // findRay(0);
+
+    // findRay(30);
+    for (var i = -PLAYER_FOV/2; i < PLAYER_FOV/2; i += 0.5) {
+        walls.push({h: findRay(i), x: i})
+    }
 }
 
-function findRay() {
+function findRay(ang) {
 
-    var pAng = Math.PI*2 - p.angRad
+    var pAngRad = Math.PI*2 - p.angRad - (ang * (Math.PI / 180));
+    var pAng = p.ang + ang;
+
+    if (pAngRad < 0) {
+        pAngRad += Math.PI*2;
+    } else if (pAngRad > Math.PI*2) {
+        pAngRad -= Math.PI*2;
+    }
+
+    if (pAng > 360) {
+        pAng -= 360;
+    } else if (pAng < 0) {
+        pAng += 360;
+    }
+
+    // console.log(pAngRad, pAng, pAngRad * (180 / Math.PI))
 
     // if facing up
-    if (p.ang > 180) {
+    if (pAng > 180) {
         a.y = Math.floor(p.y / TILE_H) * TILE_H - 1;
         ya = -TILE_H;
-        xa = TILE_H/Math.tan(pAng);
+        xa = TILE_H/Math.tan(pAngRad);
     } else {
         a.y = Math.floor(p.y / TILE_H) * TILE_H + TILE_H;
         ya = TILE_H;
-        xa = -TILE_H/Math.tan(pAng);
+        xa = -TILE_H/Math.tan(pAngRad);
         
     }
 
     //if facing left
-    if (p.ang > 90 && p.ang < 270) {
+    if (pAng > 90 && pAng < 270) {
         b.x = Math.floor(p.x / TILE_W) * TILE_W - 1;
-        yb = TILE_W*Math.tan(pAng);
+        yb = TILE_W*Math.tan(pAngRad);
         xb = -TILE_W;
     } else {
         b.x = Math.floor(p.x / TILE_W) * TILE_W + TILE_W;
-        yb = -TILE_W*Math.tan(pAng);
+        yb = -TILE_W*Math.tan(pAngRad);
         xb = TILE_W;
     }
 
-    a.x = p.x + (p.y - a.y)/Math.tan(pAng);
-    b.y = p.y + (p.x - b.x)*Math.tan(pAng);
-
-
+    a.x = p.x + (p.y - a.y)/Math.tan(pAngRad);
+    b.y = p.y + (p.x - b.x)*Math.tan(pAngRad);
 
     var nextA = {x: a.x, y: a.y};
     var nextB = {x: b.x, y: b.y};
@@ -62,10 +84,8 @@ function findRay() {
     var hit = {x: 0, y: 0};
 
     var wall = false;
-    var cnt = 0;
 
     for (var i = 0; i < 50; i++) {
-        cnt++;
         if (!wall) {
             if (distance(nextA.x, nextA.y, p.x, p.y) < distance(nextB.x, nextB.y, p.x, p.y)) {
                 castX();
@@ -77,14 +97,9 @@ function findRay() {
         }
     }
 
-    if (wall) {
-        console.log(hit.x, hit.y)
-        drawCircle(hit.x, hit.y, 10, "magenta")
-    }
-
-    for (var i = 0; i < 200; i++) {
-        let x = p.x + Math.cos(p.angRad) * 5 * i;
-        let y = p.y + Math.sin(p.angRad) * 5 * i;
+    for (var i = 0; i < 200; i += MINI_SCAN_RES) {
+        let x = p.x + Math.cos(-pAngRad) * 5 * i;
+        let y = p.y + Math.sin(-pAngRad) * 5 * i;
         if (distance(x, y, p.x, p.y) > distance(hit.x, hit.y, p.x, p.y)) {
             drawCircle(x, y, 2, "yellow")
         } else {
@@ -92,11 +107,19 @@ function findRay() {
         }
     }
 
-    function castX() {
-        drawCircle(nextA.x, nextA.y, 8, "Black");
+    if (wall) {
+        // console.log(hit.x, hit.y)
+        drawCircle(hit.x, hit.y, 10, "magenta")
+    }
 
-        drawCircle(gridToPixelX(pixelToGridX(nextA.x)) + 32, gridToPixelY(pixelToGridY(nextA.y)) + 32, 20, "orange");
-        drawText(cnt + ":" + pixelToGridX(nextA.x) + ":" + pixelToGridY(nextA.y), gridToPixelX(pixelToGridX(nextA.x)) + 32, gridToPixelY(pixelToGridY(nextA.y)) + 32, "Black");
+    var trueDist = distance(hit.x, hit.y, p.x, p.y) * Math.cos(Math.abs(ang * (Math.PI/180)));
+    return trueDist;
+
+    function castX() {
+        // drawCircle(nextA.x, nextA.y, 8, "Black");
+
+        // drawCircle(gridToPixelX(pixelToGridX(nextA.x)) + 32, gridToPixelY(pixelToGridY(nextA.y)) + 32, 20, "orange");
+        // drawText(cnt + ":" + pixelToGridX(nextA.x) + ":" + pixelToGridY(nextA.y), gridToPixelX(pixelToGridX(nextA.x)) + 32, gridToPixelY(pixelToGridY(nextA.y)) + 32, "Black");
 
         if (pixelToGridY(nextA.y) < 0 || pixelToGridY(nextA.y) >= MAP_ROWS) {
             return; 
@@ -107,7 +130,6 @@ function findRay() {
         }
 
         if (worldGridCurrent[pixelToGridY(nextA.y)][pixelToGridX(nextA.x)] == 1) {
-            drawCircle(gridToPixelX(pixelToGridX(nextA.x)) + 32, gridToPixelY(pixelToGridY(nextA.y)) + 32, 20, "orange");
             wall = true;
             hit.x = nextA.x;
             hit.y = nextA.y;
@@ -118,10 +140,10 @@ function findRay() {
     }
 
     function castY() {
-        drawCircle(nextB.x, nextB.y, 5, "White");
+        // drawCircle(nextB.x, nextB.y, 5, "White");
 
-        drawCircle(gridToPixelX(pixelToGridX(nextB.x)) + 32, gridToPixelY(pixelToGridY(nextB.y)) + 32, 15, "cyan");
-        drawText(cnt + ":" + pixelToGridX(nextB.x) + ":" + pixelToGridY(nextB.y), gridToPixelX(pixelToGridX(nextB.x)) + 32, gridToPixelY(pixelToGridY(nextB.y)) + 32, "Black");
+        // drawCircle(gridToPixelX(pixelToGridX(nextB.x)) + 32, gridToPixelY(pixelToGridY(nextB.y)) + 32, 15, "cyan");
+        // drawText(cnt + ":" + pixelToGridX(nextB.x) + ":" + pixelToGridY(nextB.y), gridToPixelX(pixelToGridX(nextB.x)) + 32, gridToPixelY(pixelToGridY(nextB.y)) + 32, "Black");
 
         if (pixelToGridY(nextB.y) < 0 || pixelToGridY(nextB.y) >= MAP_ROWS) {
             return; 
