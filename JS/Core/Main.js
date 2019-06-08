@@ -12,6 +12,8 @@ var pause = false;
 
 document.getElementById("gameCanvas").setAttribute("width",  CANVAS_WIDTH );
 document.getElementById("gameCanvas").setAttribute("height", CANVAS_HEIGHT);
+document.getElementById("minimapCanvas").setAttribute("width",  CANVAS_WIDTH );
+document.getElementById("minimapCanvas").setAttribute("height", CANVAS_HEIGHT);
 
 document.getElementById("projection").setAttribute("width",  CANVAS_WIDTH );
 document.getElementById("projection").setAttribute("height", CANVAS_HEIGHT);
@@ -30,14 +32,14 @@ window.onload = function() {
 
 function startGame() { //starts game (func called after images load)
 	setupInput();
-	setInterval(updateAll, 1000/FPS);  
+	setInterval(updateAll, 1000/FPS);
     resetGame();
 }
 
 function updateAll() {
     if (!pause){
         for (var i in updateList){
-            updateList[i].f();  
+            updateList[i].f();
         }
     }
     
@@ -45,9 +47,6 @@ function updateAll() {
 
 function resetGame() {
     for (var i in resetList) {
-        resetList[i].f();        
+        resetList[i].f();
     }
 }
-
-
-
