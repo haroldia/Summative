@@ -12,8 +12,8 @@ var pause = false;
 
 document.getElementById("gameCanvas").setAttribute("width",  CANVAS_WIDTH );
 document.getElementById("gameCanvas").setAttribute("height", CANVAS_HEIGHT);
-document.getElementById("minimapCanvas").setAttribute("width",  CANVAS_WIDTH );
-document.getElementById("minimapCanvas").setAttribute("height", CANVAS_HEIGHT);
+document.getElementById("projection").setAttribute("width",  CANVAS_WIDTH );
+document.getElementById("projection").setAttribute("height", CANVAS_HEIGHT);
 
 document.getElementById("projection").setAttribute("width",  CANVAS_WIDTH );
 document.getElementById("projection").setAttribute("height", CANVAS_HEIGHT);
