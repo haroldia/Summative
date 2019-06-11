@@ -104,6 +104,8 @@ class Enemy {
         if (this.health <= 0) {
             // enemyList.splice(enemyList.indexOf(this), 1);
             this.dead = true;
+            playSound(scream);
+
         }
     }
     charge() {
@@ -223,6 +225,7 @@ class Enemy {
                     // enemyList.splice(enemyList.indexOf(j), 1);
                     enemyShooting = true;
                     if (p.health > 0) {
+                        playSound(zap);
 
                         p.health -= ENEMY_DAMAGE;
                         drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "red", 0.5);

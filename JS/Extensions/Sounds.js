@@ -4,6 +4,11 @@ var soundList = [
     "Sounds/music.aac",
     "Sounds/gunshot.mp3",
     "Sounds/growl.mp3",
+    "Sounds/scream.mp3",
+    "Sounds/zap.mp3",
+    "Sounds/zoom.mp3",
+
+
 ];
 
 setSounds()

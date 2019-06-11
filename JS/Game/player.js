@@ -45,12 +45,16 @@ function drawPlayerP() {
 
 function dash() {
     if (p.dash <= 0 && p.dashB <= 0) {
+        playSound(zoom);
+
         p.dash = 10;
     }
 }
 
 function dashB() {
     if (p.dash <= 0 && p.dashB <= 0) {
+        playSound(zoom);
+
         p.dashB = 10;
     }
 }
