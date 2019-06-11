@@ -218,9 +218,9 @@ class PlayerClass {
 
         if (this.health == 0) {
             pause = true;
-            drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "pink", 0.5);
-            // drawTextP("GAME OVER", CANVAS_WIDTH/2, CANVAS_HEIGHT/2, "black", "100px arial", "center", "center");
-            drawImageP(gameoverscreen, CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
+            drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "red", 0.3);
+            drawTextP("GAME OVER", CANVAS_WIDTH/2, CANVAS_HEIGHT/2, "black", "100px arial", "center", "center");
+            // drawImageP(gameoverscreen, CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
         } 
         drawTextP(enemyTotal - enemyCnt + "/" + enemyTotal, 600, 80, "white", "80px arial");
 
