@@ -6,8 +6,9 @@ const PLAYER_FOV = 60;
 const PROJECTION_PLANE_WIDTH = 320;
 const PROJECTION_PLANE_HEIGHT = 320;
 
-const MINI_SCAN_RES = 5
-const SCAN_RES = 0.5;
+const MINI_SCAN_RES_L = 5;
+
+const SCAN_RES = 0.25 //PLAYER_FOV / CANVAS_WIDTH;
 //dimension of pp = 320 x 200
 //centre of pp = (160,100)
 // distance of pp = 277
@@ -23,13 +24,12 @@ var yb = 0;
 var xb = 0;
 
 function updateRay() {
-    walls = [];
-    drawRectP(0, 54, 10, 10, "red");
+    // drawRectP(0, 54, 10, 10, "red");
     // findRay(0);
 
     // findRay(30);
-    for (var i = -PLAYER_FOV/2; i < PLAYER_FOV/2; i += 0.5) {
-        walls.push({h: findRay(i), x: i})
+    for (var i = -PLAYER_FOV/2; i < PLAYER_FOV/2; i += SCAN_RES) {
+        walls.push({h: findRay(i), x: i, s: false, d: findRay(i)});
     }
 }
 
@@ -97,21 +97,28 @@ function findRay(ang) {
         }
     }
 
-    for (var i = 0; i < 200; i += MINI_SCAN_RES) {
-        let x = p.x + Math.cos(-pAngRad) * 5 * i;
-        let y = p.y + Math.sin(-pAngRad) * 5 * i;
-        if (distance(x, y, p.x, p.y) > distance(hit.x, hit.y, p.x, p.y)) {
-            drawCircle(x, y, 2, "yellow")
-        } else {
-            drawCircle(x, y, 2, "sienna")
+    if (Math.random() > 0.65) {
+        for (var i = 0; i < 200; i += MINI_SCAN_RES_L) {
+            if (Math.random() > 0.75) {
+                let x = p.x + Math.cos(-pAngRad) * 5 * i;
+                let y = p.y + Math.sin(-pAngRad) * 5 * i;
+                if (distance(x, y, p.x, p.y) > distance(hit.x, hit.y, p.x, p.y)) {
+                    drawCircle(x, y, 2, "red")
+                } else {
+                    drawCircle(x, y, 2, "white")
+                }
+            }
         }
+        if (wall) {
+            // console.log(hit.x, hit.y)
+            drawCircle(hit.x, hit.y, 10, "magenta")
+        }
+    
     }
+    
 
-    if (wall) {
-        // console.log(hit.x, hit.y)
-        drawCircle(hit.x, hit.y, 10, "magenta")
-    }
-
+    // return distance(hit.x, hit.y, p.x, p.y);
+    
     var trueDist = distance(hit.x, hit.y, p.x, p.y) * Math.cos(Math.abs(ang * (Math.PI/180)));
     return trueDist;
 

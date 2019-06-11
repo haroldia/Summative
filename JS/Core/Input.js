@@ -33,7 +33,7 @@ function keyPressedHandler(evt){
     updateKeyHeldState(evt.keyCode, true);
 	
 	//prevents special keys from moving page
-	// evt.preventDefault(); 
+	evt.preventDefault(); 
 }
 
 function keyReleasedHandler(evt){

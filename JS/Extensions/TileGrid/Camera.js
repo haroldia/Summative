@@ -37,17 +37,17 @@ function centerCam() {
 	// camPanY = eval(camCenterPoint.y) - canvas.height/2;
 
 	if (mouseButton.right.held) {
-		drawText("camera", 50, 50)
+		// drawText("camera", 50, 50)
 		if (mousePos.x > 550) {
-			camPanX += (mousePos.x-500)*2/60;
+			camPanX += (mousePos.x-500)*2/20;
 		} else if (mousePos.x < 450) {
-			camPanX -= (500-mousePos.x)*2/60;
+			camPanX -= (500-mousePos.x)*2/20;
 		}
 	
 		if (mousePos.y > 350) {
-		camPanY += (mousePos.y-300)/60;
+		camPanY += (mousePos.y-300)/20;
 		} else if (mousePos.y < 250) {
-		camPanY -= (300-mousePos.y)/60;
+		camPanY -= (300-mousePos.y)/20;
 		}
 	}
 }

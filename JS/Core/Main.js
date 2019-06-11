@@ -1,4 +1,4 @@
-const FPS = 60;
+const FPS = 15;
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 
@@ -12,8 +12,6 @@ var pause = false;
 
 document.getElementById("gameCanvas").setAttribute("width",  CANVAS_WIDTH );
 document.getElementById("gameCanvas").setAttribute("height", CANVAS_HEIGHT);
-document.getElementById("projection").setAttribute("width",  CANVAS_WIDTH );
-document.getElementById("projection").setAttribute("height", CANVAS_HEIGHT);
 
 document.getElementById("projection").setAttribute("width",  CANVAS_WIDTH );
 document.getElementById("projection").setAttribute("height", CANVAS_HEIGHT);
