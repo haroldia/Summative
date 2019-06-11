@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="CSS/Navbar.css">
   <link rel="stylesheet" type="text/css" href="CSS/CanvasAlign.css">
+  <link rel="stylesheet" type="text/css" href="CSS/index.css">
 </head>
 <body>
  
@@ -24,15 +25,18 @@
 </div>
 --
 
+<button onclick="loadGame(0)">Game 1</button>
+<button onclick="loadGame(1)">Game 2</button>
+<button onclick="loadGame(2)">Game 3</button>
+<button onclick="loadGame(3)">Game 4</button>
+<button onclick="loadGame(4)">Game 5</button>
+
 <table>
   <tr>
     <td><canvas id="projection"></canvas></td>
     <td><canvas id="gameCanvas"></canvas></td>
   </tr>
 </table>
-
-<center></center>
-<center></center>
 
 <!--Scripts-->
 <script src="JS/Core/Main.js"></script>
