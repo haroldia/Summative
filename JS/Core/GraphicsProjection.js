@@ -3,7 +3,7 @@ updateList.push({ f: () => drawAllP()});
 var drawListP = [];
 
 function drawAllP() {
-    drawRectP(0, 0, canvas.width, canvas.height, "cyan");
+    drawRectP(0, 0, canvas.width, canvas.height, "black");
 
     //sorts drawList by layers
     drawListP.sort(function (a, b) { return b.l - a.l; });

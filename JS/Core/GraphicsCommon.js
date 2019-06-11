@@ -3,7 +3,7 @@ updateList.push({ f: () => drawAll()});
 var drawList = [];
 
 
-const minimapEnable = true;
+const minimapEnable = false;
 
 function drawAll() {
     drawRect(0, 0, canvas.width, canvas.height, "Black");

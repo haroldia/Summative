@@ -3,6 +3,9 @@ resetList.push({f: () => resetPlayer()});
 cameraDrawList.push({f: () => drawPlayer(), l: 1});
 drawListP.push({f: () => drawPlayerP(), l: 0});
 onKeyPressedList.push({f: () => resetGame(),  key: keyboard.KEY_R.code});
+onKeyPressedList.push({f: () => dash(),  key: keyboard.KEY_I.code});
+onKeyPressedList.push({f: () => dashB(),  key: keyboard.KEY_K.code});
+
 
 
 const PLAYER_SPEED = 8;
@@ -20,7 +23,7 @@ function resetPlayer() {
 
             if(j == 3) {
                 
-                p = new PlayerClass(gridToPixelX(i.indexOf(j)) + TILE_W/2, gridToPixelY(worldGridCurrent.indexOf(i)) + TILE_H/2, 0);
+                p = new PlayerClass(gridToPixelX(i.indexOf(j)) + TILE_W/2, gridToPixelY(worldGridCurrent.indexOf(i)) + TILE_H/2, 180);
                 
                 worldGridCurrent[worldGridCurrent.indexOf(i)][i.indexOf(j)] = 0; 
             }
@@ -40,6 +43,18 @@ function drawPlayerP() {
     p.drawP();
 }
 
+function dash() {
+    if (p.dash <= 0 && p.dashB <= 0) {
+        p.dash = 10;
+    }
+}
+
+function dashB() {
+    if (p.dash <= 0 && p.dashB <= 0) {
+        p.dashB = 10;
+    }
+}
+
 class PlayerClass {
     constructor(x, y, ang) {
         this.x = x;
@@ -48,6 +63,10 @@ class PlayerClass {
         this.angRad = 0;
         this.health = 20;
         this.cnt = 0;
+        this.dash = 0;
+        this.dashB = 0;
+
+        this.speed = PLAYER_SPEED;
     }
 
     update() {
@@ -71,27 +90,36 @@ class PlayerClass {
     }
 
     move() {
-        if (keyboard.KEY_W.held) {
+        this.dash--;
+        this.dashB--;
+        if (this.dash > 0 || this.dashB > 0) {
+            
+            
+            this.speed = PLAYER_SPEED * 5;
+        } else {
+            this.speed = PLAYER_SPEED;
+        }
+        if (keyboard.KEY_W.held || this.dash > 0) {
             this.collision(1, 0);
             // this.x += Math.cos(this.angRad) * PLAYER_SPEED;
             // this.y += Math.sin(this.angRad) * PLAYER_SPEED;
         }
-        if (keyboard.KEY_S.held) {
+        if (keyboard.KEY_S.held|| this.dashB > 0) {
             this.collision(-1, 0);
 
             // this.x -= Math.cos(this.angRad) * PLAYER_SPEED;
             // this.y -= Math.sin(this.angRad) * PLAYER_SPEED;
         }
-        if (keyboard.KEY_A.held) {
+        if (keyboard.KEY_A.held && this.dash <= 0 && this.dashB  <= 0 ) {
             this.collision(-1, 1);
         }
-        if (keyboard.KEY_D.held) {
+        if (keyboard.KEY_D.held && this.dash <= 0 && this.dashB  <= 0 ) {
             this.collision(1, 1);
         }
-        if (keyboard.LEFT_ARROW.held) {
+        if (keyboard.KEY_J.held) {
             this.ang -= PLAYER_TURN_SPEED;
         }
-        if (keyboard.RIGHT_ARROW.held) {
+        if (keyboard.KEY_L.held) {
             this.ang += PLAYER_TURN_SPEED;
         }
     }
@@ -126,25 +154,33 @@ class PlayerClass {
         //up
         if (worldGridCurrent[ym][x] == 1 && angY < 0) {
             wallY = true;
+            this.dash = 0;
+            this.dashB = 0;
         }
         //down
         if (worldGridCurrent[yp][x] == 1 && angY > 0) {
             wallY = true;
+            this.dash = 0;
+            this.dashB = 0;
         }
         //left
         if (worldGridCurrent[y][xm] == 1 && angX < 0) {
-            wallX = true;            
+            wallX = true;
+            this.dash = 0;
+            this.dashB = 0;            
         }
         //right
         if (worldGridCurrent[y][xp] == 1 && angX > 0) {
-            wallX = true;            
+            wallX = true;
+            this.dash = 0;
+            this.dashB = 0;            
         }
 
         if (!wallX) {
-            this.x += angX * PLAYER_SPEED;
+            this.x += angX * this.speed;
         }
         if (!wallY) {
-            this.y += angY * PLAYER_SPEED;
+            this.y += angY * this.speed;
         }
     }
 
@@ -161,11 +197,17 @@ class PlayerClass {
 
         drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "red", (0.41 - (this.health*2)/100));
 
+        if (this.dash > 0 || this.dashB > 0) {
+            drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "cyan", 0.1);
+        }
+
         if (this.health == 0) {
             pause = true;
             drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "red", 0.5);
             drawTextP("GAME OVER", CANVAS_WIDTH/2, CANVAS_WIDTH/2, "black", "100px arial", "center", "center");
 
         } 
+        drawTextP(enemyTotal - enemyCnt + "/" + enemyTotal, 600, 80, "white", "80px arial");
+
     }
 }

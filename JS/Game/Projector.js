@@ -52,24 +52,24 @@ function drawSlice(x, h, k, t) {
     drawRectP(x, 0, SLICE_WIDTH + 1, CANVAS_HEIGHT/2 - h/2 - (h * 2) * q, "black");
     var s = h * 3/ 20;
     var q = 1;
-    // if (k > 100) {
-    //     k = 100;
-    // }
-    // for (var i = 0; i < 20; i++) {
-    //     if ((i + t) % 2 == 0) {
-    //         drawRectP(x, CANVAS_HEIGHT/2 - h/2 + (i * s) - (h * 2) * q, SLICE_WIDTH + 1, s, "rgb(" + k/3 + ",0 , " + k/5 +")");
-    //     } else {
-    //         drawRectP(x, CANVAS_HEIGHT/2 - h/2 + (i * s) - (h * 2) * q, SLICE_WIDTH + 1, s, "rgb(" + k/2 + ",0 , " + k/4 +")");
-    //     }
-    // }
+    if (k > 150) {
+        k = 150;
+    }
     for (var i = 0; i < 20; i++) {
         if ((i + t) % 2 == 0) {
-            drawRectP(x, CANVAS_HEIGHT/2 - h/2 + (i * s) - (h * 2) * q, SLICE_WIDTH + 1, s, "rgb(" + k + ",0 , 0)");
-        } else {
-            drawRectP(x, CANVAS_HEIGHT/2 - h/2 + (i * s) - (h * 2) * q, SLICE_WIDTH + 1, s, "rgb( 0 ,0 , " + k +")");
+             drawRectP(x, CANVAS_HEIGHT/2 - h/2 + (i * s) - (h * 2) * q, SLICE_WIDTH + 1, s+1, "rgb(" + k/3 + ",0 , " + k/5 +")");
+         } else {
+            drawRectP(x, CANVAS_HEIGHT/2 - h/2 + (i * s) - (h * 2) * q, SLICE_WIDTH + 1, s+1, "rgb(" + k/2 + ",0 , " + k/4 +")");
         }
     }
+    // for (var i = 0; i < 20; i++) {
+    //     if ((i + t) % 2 == 0) {
+    //         drawRectP(x, CANVAS_HEIGHT/2 - h/2 + (i * s) - (h * 2) * q, SLICE_WIDTH + 1, s, "rgb(" + k + ",0 , 0)");
+    //     } else {
+    //         drawRectP(x, CANVAS_HEIGHT/2 - h/2 + (i * s) - (h * 2) * q, SLICE_WIDTH + 1, s, "rgb( 0 ,0 , " + k +")");
+    //     }
+    // }
     // drawRectP(x, CANVAS_HEIGHT/2 - h/2, SLICE_WIDTH + 1, h, "rgb(" + k + ", 0, 0)");
 
-    drawRectP(x, CANVAS_HEIGHT/2 + h/2, SLICE_WIDTH + 1, CANVAS_HEIGHT, "green");
+    drawRectP(x, CANVAS_HEIGHT/2 + h/2, SLICE_WIDTH + 1, CANVAS_HEIGHT, "gray");
 }

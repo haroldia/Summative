@@ -3,7 +3,7 @@ resetList.push({f: () => resetEnemy()});
 cameraDrawList.push({f: () => drawEnemy(), l: 1});
 
 const ENEMY_RADIUS = 16;
-const ENEMY_DAMAGE = 2;
+const ENEMY_DAMAGE = 4;
 const ENEMY_SPEED = 7;
 const ENEMY_MAX_HEALTH = 180;
 
@@ -11,20 +11,24 @@ var enemyList = [];
 
 var enemyShooting = false;
 
+var enemyCnt = 0;
+
+var enemyTotal = 0;
 
 function updateEnemy() {
     enemyShooting = false;
-
-    var win = true;
+    enemyCnt = 0;
 
     for (var i of enemyList) {
         if (!i.dead) {
-            win = false;
+            enemyCnt++;
         }
         i.update();
     }
 
-    if (win) {
+    
+
+    if (enemyCnt == 0) {
         pause = true;
         drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "green", 0.5);
         drawTextP("Level Cleared", CANVAS_WIDTH/2, CANVAS_WIDTH/2, "black", "100px arial", "center", "center");
@@ -32,6 +36,7 @@ function updateEnemy() {
 }
 
 function resetEnemy() {
+    enemyTotal = 0;
     enemyList = [];
     // enemyList.push(new Enemy(200, 350));
     // enemyList.push(new Enemy(300, 450));
@@ -42,7 +47,7 @@ function resetEnemy() {
             if(j == 2) {
                 
                 enemyList.push(new Enemy(gridToPixelX(i.indexOf(j)) + TILE_W/2, gridToPixelY(worldGridCurrent.indexOf(i)) + TILE_H/2));
-                
+                enemyTotal++;
                 worldGridCurrent[worldGridCurrent.indexOf(i)][i.indexOf(j)] = 0; 
             }
         }
@@ -102,7 +107,20 @@ class Enemy {
         }
     }
     charge() {
+        var x = this.x;
+        var y = this.y;
         if (distance(this.x, this.y, p.x, p.y) < 200) {
+            for (var i = 0; i < 100; i++) {
+                x += Math.cos(this.ang) * PLAYER_RAD/4;
+                y += Math.sin(this.ang) * PLAYER_RAD/4;
+                if (distance(x, y, p.x, p.y) < PLAYER_RAD) {
+                    playSound(growl);
+                    break;
+                }
+                if (worldGridCurrent[pixelToGridY(y)][pixelToGridX(x)] == 1) {
+                    break;
+                }
+            }
             this.speed = ENEMY_SPEED * 3;
             this.attack = true;
             if (distance(this.x, this.y, p.x, p.y) < 10) {
@@ -227,6 +245,7 @@ class Enemy {
 
         drawText(Math.round(this.relAng * 100)/100, 200, 200);
         drawText(Math.round(p.angRad * 100)/100, 200, 220)
+
 
     }
 }

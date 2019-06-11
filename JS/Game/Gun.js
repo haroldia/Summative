@@ -1,7 +1,7 @@
 drawListP.push({f: () => drawGun(), l: 1});
 onKeyPressedList.push({f: () => shoot(),  key: keyboard.SPACE.code});
 
-const GUN_DAMAGE = 600;
+const GUN_DAMAGE = 60;
 
 var e = 0;
 
@@ -16,9 +16,13 @@ function drawGun() {
     // drawRectP(CANVAS_WIDTH/2 -5, 0, 10, CANVAS_HEIGHT, "Black", "0.2");
 }
 
+
 function shoot() { 
-    playSound(shift);
+
+
     if (e < 0) {
+        playSound(gunshot);
+
         e = 100;
 
         var x = p.x;
