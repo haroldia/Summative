@@ -3,10 +3,10 @@ updateList.push({ f: () => drawAll()});
 var drawList = [];
 
 function drawAll() {
-    drawRect(0, 0, canvas.width, canvas.height, "cyan");
+    drawRect(0, 0, canvas.width, canvas.height, "Black");
 
     //sorts drawList by layers
-    drawList.sort(function (a, b) { return b.lay - a.lay; });
+    drawList.sort(function (a, b) { return b.l - a.l; });
 
     //draws in order of layers (lowest layer are drawn in front)
     for (var i = 0; i < drawList.length; i++) {

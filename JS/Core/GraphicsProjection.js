@@ -6,7 +6,7 @@ function drawAllP() {
     drawRectP(0, 0, canvas.width, canvas.height, "cyan");
 
     //sorts drawList by layers
-    drawListP.sort(function (a, b) { return b.lay - a.lay; });
+    drawListP.sort(function (a, b) { return b.l - a.l; });
 
     //draws in order of layers (lowest layer are drawn in front)
     for (var i = 0; i < drawListP.length; i++) {
