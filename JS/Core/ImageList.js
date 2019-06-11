@@ -6,6 +6,8 @@ imageList.push(
     "images/GoblinAttack.png",
     "images/GoblinShoot.png",
     "images/explosion.png",
+    "images/gameoverscreen.png",
+
 
 
 )

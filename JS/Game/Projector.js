@@ -31,7 +31,7 @@ function project() {
 
             // drawRectP(i.x - h/4, CANVAS_HEIGHT/2 - h / 2, h/2, h, "rgb(" + (255 - i.p) + ", 0 , " + k + ")");
             ctxP.drawImage(i.q, i.x - h/2, CANVAS_HEIGHT/2 - h / 2, h, h);
-            if (i.v > 0) {
+            if (i.v > 0 && i.q != GoblinAttack) {
                 var z = h * (i.v/10);
                 ctxP.drawImage(explosion, i.x- z/2, CANVAS_HEIGHT/2 - z/2, z, z);
             }

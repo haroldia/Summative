@@ -5,6 +5,8 @@ drawListP.push({f: () => drawPlayerP(), l: 0});
 onKeyPressedList.push({f: () => resetGame(),  key: keyboard.KEY_R.code});
 onKeyPressedList.push({f: () => dash(),  key: keyboard.KEY_I.code});
 onKeyPressedList.push({f: () => dashB(),  key: keyboard.KEY_K.code});
+// onKeyPressedList.push({f: () => turnLeft(),  key: keyboard.KEY_Q.code});
+// onKeyPressedList.push({f: () => turnRight(),  key: keyboard.KEY_E.code});
 
 
 
@@ -29,6 +31,15 @@ function resetPlayer() {
             }
         }
     }
+}
+
+function turnLeft() {
+    p.ang -= 45;
+}
+
+
+function turnRight() {
+    p.ang += 45;
 }
 
 function updatePlayer() {
@@ -207,9 +218,9 @@ class PlayerClass {
 
         if (this.health == 0) {
             pause = true;
-            drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "red", 0.5);
-            drawTextP("GAME OVER", CANVAS_WIDTH/2, CANVAS_WIDTH/2, "black", "100px arial", "center", "center");
-
+            drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "pink", 0.5);
+            // drawTextP("GAME OVER", CANVAS_WIDTH/2, CANVAS_HEIGHT/2, "black", "100px arial", "center", "center");
+            drawImageP(gameoverscreen, CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
         } 
         drawTextP(enemyTotal - enemyCnt + "/" + enemyTotal, 600, 80, "white", "80px arial");
 
