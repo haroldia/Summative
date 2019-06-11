@@ -1,6 +1,6 @@
 updateList         .push({f: () => logFPS    ()                });
 intervalUpdateList .push({f: () => updateFPS (), int: 6, cnt: 0})
-drawList           .push({f: () => drawFPS   (), lay: -1       });
+drawListP.push({f: () => drawFPS   (), l: 0       });
 
 const FPS_POS = {x: 50, y: 150};
 const FPS_FONT = "30px Monospace";
@@ -26,5 +26,5 @@ function logFPS() {
 }
 
 function drawFPS(){
-	drawText("FPS: " + fpsCount, FPS_POS.x, FPS_POS.y, "Black", FPS_FONT);   
+    drawTextP("FPS: " + fpsCount, 50, 150, "white", "30px Monospace");
 }

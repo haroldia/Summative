@@ -2,6 +2,9 @@ updateList.push({ f: () => drawAll()});
 
 var drawList = [];
 
+
+const minimapEnable = true;
+
 function drawAll() {
     drawRect(0, 0, canvas.width, canvas.height, "Black");
 
@@ -20,54 +23,65 @@ function drawLoadingScreen() {
 }
 
 function drawRect(x, y, width, height, color, alpha) {
-    var alphaTemp = alpha || 1;
-    ctx.globalAlpha = alphaTemp;
-    ctx.fillStyle = color || "white";
-    ctx.fillRect(x, y, width, height);
-    ctx.globalAlpha = 1;
+    if (minimapEnable) {
+        var alphaTemp = alpha || 1;
+        ctx.globalAlpha = alphaTemp;
+        ctx.fillStyle = color || "white";
+        ctx.fillRect(x, y, width, height);
+        ctx.globalAlpha = 1;
+    }
+    
 }
 
 function drawCircle(x, y, radius, color) {
-    ctx.fillStyle = color || "white";
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2, true);
-    ctx.fill();
+    if (minimapEnable) {
+        ctx.fillStyle = color || "white";
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2, true);
+        ctx.fill();
+    }
 }
 
 function drawText(words, textX, textY, fillColor, font, align, baseline) {
-    ctx.font = font || "20px Arial";
+    if (minimapEnable) {
 
-    ctx.textAlign = align || "start";
-    ctx.textBaseline = baseline || "alphabetic";
+        ctx.font = font || "20px Arial";
+
+        ctx.textAlign = align || "start";
+        ctx.textBaseline = baseline || "alphabetic";
 
 
-    ctx.fillStyle = fillColor || "white";
-    ctx.fillText(words, textX, textY);
+        ctx.fillStyle = fillColor || "white";
+        ctx.fillText(words, textX, textY);
+    }
 }
 
 function drawImage(image, x, y, ang, scaleX, scaleY, alpha) {
-    ctx.save();
-    ctx.translate(x, y);
+    if (minimapEnable) {
 
-    //set angTemp to ang if ang if defined, 0 otherwise
-    var angTemp = ang || 0;
-    ctx.rotate(angTemp);
+        ctx.save();
+        ctx.translate(x, y);
 
-    //set scaleTemp to ang if scale if defined, 1 otherwise
-    var scaleXTemp = scaleX || 1;
-    var scaleYTemp = scaleY || 1;
-    ctx.scale(scaleXTemp, scaleYTemp);
+        //set angTemp to ang if ang if defined, 0 otherwise
+        var angTemp = ang || 0;
+        ctx.rotate(angTemp);
 
-    var alphaTemp = alpha || 1;
-    ctx.globalAlpha = alphaTemp;
+        //set scaleTemp to ang if scale if defined, 1 otherwise
+        var scaleXTemp = scaleX || 1;
+        var scaleYTemp = scaleY || 1;
+        ctx.scale(scaleXTemp, scaleYTemp);
 
-    ctx.drawImage(image, -image.width / 2, -image.height / 2);
-    ctx.globalAlpha = 1;
+        var alphaTemp = alpha || 1;
+        ctx.globalAlpha = alphaTemp;
+
+        ctx.drawImage(image, -image.width / 2, -image.height / 2);
+        ctx.globalAlpha = 1;
 
 
-    ctx.scale(1, 1);
+        ctx.scale(1, 1);
 
-    ctx.restore();
+        ctx.restore();
+    }
     
 }
 

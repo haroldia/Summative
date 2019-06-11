@@ -3,25 +3,50 @@ resetList.push({f: () => resetEnemy()});
 cameraDrawList.push({f: () => drawEnemy(), l: 1});
 
 const ENEMY_RADIUS = 16;
-
-const ENEMY_DAMAGE = 4;
-
-const ENEMY_SPEED = 5;
+const ENEMY_DAMAGE = 2;
+const ENEMY_SPEED = 7;
+const ENEMY_MAX_HEALTH = 180;
 
 var enemyList = [];
 
 var enemyShooting = false;
 
+
 function updateEnemy() {
     enemyShooting = false;
+
+    var win = true;
+
     for (var i of enemyList) {
+        if (!i.dead) {
+            win = false;
+        }
         i.update();
+    }
+
+    if (win) {
+        pause = true;
+        drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "green", 0.5);
+        drawTextP("Level Cleared", CANVAS_WIDTH/2, CANVAS_WIDTH/2, "black", "100px arial", "center", "center");
     }
 }
 
 function resetEnemy() {
+    enemyList = [];
     // enemyList.push(new Enemy(200, 350));
-    enemyList.push(new Enemy(300, 450));
+    // enemyList.push(new Enemy(300, 450));
+
+    for(var i of worldGridCurrent) { 
+        for(var j of i) { 
+
+            if(j == 2) {
+                
+                enemyList.push(new Enemy(gridToPixelX(i.indexOf(j)) + TILE_W/2, gridToPixelY(worldGridCurrent.indexOf(i)) + TILE_H/2));
+                
+                worldGridCurrent[worldGridCurrent.indexOf(i)][i.indexOf(j)] = 0; 
+            }
+        }
+    }
 
 }
 
@@ -38,16 +63,27 @@ class Enemy {
         this.dist = 0;
         this.ang = 0;
         this.relAng = 0;
-        this.speed = 5;
-        this.health = 200;
+        this.speed = ENEMY_SPEED;
+        this.health = ENEMY_MAX_HEALTH;
         this.reload = 0;
         this.lastPlayer = {x: this.x, y: this.y};
+        this.dead = false;
+        this.attack = false;
+        this.hit = 0;
     }
     update() {
-       this.updateAng();
-       this.move();
-       this.updateHealth();
-       this.shoot();
+        this.updateAng();
+        if (!this.dead) {
+            this.move();
+            this.updateHealth();
+            this.shoot();
+            this.charge();
+        }
+        if (this.hit > 0){
+            this.hit --; 
+
+        }
+       
     }
     updateAng() {
         this.dist = distance(this.x, this.y, p.x, p.y);
@@ -61,19 +97,24 @@ class Enemy {
     }
     updateHealth() {
         if (this.health <= 0) {
-            enemyList.splice(enemyList.indexOf(this), 1);
+            // enemyList.splice(enemyList.indexOf(this), 1);
+            this.dead = true;
+        }
+    }
+    charge() {
+        if (distance(this.x, this.y, p.x, p.y) < 200) {
+            this.speed = ENEMY_SPEED * 3;
+            this.attack = true;
+            if (distance(this.x, this.y, p.x, p.y) < 10) {
+                p.health = 0;
+                p.ang = this.ang;
+            } 
+        } else {
+            this.speed = ENEMY_SPEED;
+            this.attack = false;
         }
     }
     move() {
-        // this.x += this.speed;
-        // if (this.x > 300) {
-        //     this.speed *= -1;
-        // } else if (this.x < 200) {
-        //     this.speed *= -1;
-        // }
-
-        
-
         if (distance(this.x, this.y, this.lastPlayer.x, this.lastPlayer.y) > 10) {
             var angX = Math.cos(this.ang);
             var angY = Math.sin(this.ang);
@@ -107,10 +148,10 @@ class Enemy {
             }
 
             if (!wallX) {
-                this.x += angX * ENEMY_SPEED;
+                this.x += angX * this.speed;
             }
             if (!wallY) {
-                this.y += angY * ENEMY_SPEED;
+                this.y += angY * this.speed;
             }
         }
         
@@ -152,9 +193,9 @@ class Enemy {
         }
     }
     shoot() {
-        console.log(this.reload);
+        // console.log(this.reload);
         if (this.reload <= 0) {
-            this.reload = 10;
+            this.reload = 5;
             var x = this.x;
             var y = this.y;
             for (var i = 0; i < 500; i++) {
@@ -163,7 +204,12 @@ class Enemy {
                 if (distance(x, y, p.x, p.y) < PLAYER_RAD) {
                     // enemyList.splice(enemyList.indexOf(j), 1);
                     enemyShooting = true;
-                    p.health -= ENEMY_DAMAGE;
+                    if (p.health > 0) {
+
+                        p.health -= ENEMY_DAMAGE;
+                        drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "red", 0.5);
+
+                    }
                     return;
                 }
                 if (worldGridCurrent[pixelToGridY(y)][pixelToGridX(x)] == 1) {

@@ -44,6 +44,7 @@ function updateAll() {
 }
 
 function resetGame() {
+    pause = false;
     for (var i in resetList) {
         resetList[i].f();
     }

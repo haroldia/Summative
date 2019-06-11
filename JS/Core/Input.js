@@ -17,8 +17,6 @@ var onMouseClickList  = [];
 var onMouseDownList  = [];
 var onMouseUpList  = [];
 
-
-
 function keyPressedHandler(evt){
 	for (var i in onKeyPressedList){
 		if (onKeyPressedList[i].key == undefined){

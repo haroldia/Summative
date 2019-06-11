@@ -2,6 +2,7 @@ updateList.push({f: () => updatePlayer()});
 resetList.push({f: () => resetPlayer()});
 cameraDrawList.push({f: () => drawPlayer(), l: 1});
 drawListP.push({f: () => drawPlayerP(), l: 0});
+onKeyPressedList.push({f: () => resetGame(),  key: keyboard.KEY_R.code});
 
 
 const PLAYER_SPEED = 8;
@@ -13,7 +14,18 @@ const PLAYER_MAX_HEALTH = 20;
 var p;
 
 function resetPlayer() {
-    p = new PlayerClass(150, 500, 320);
+    // p = new PlayerClass(150, 500, 320);
+    for(var i of worldGridCurrent) { 
+        for(var j of i) { 
+
+            if(j == 3) {
+                
+                p = new PlayerClass(gridToPixelX(i.indexOf(j)) + TILE_W/2, gridToPixelY(worldGridCurrent.indexOf(i)) + TILE_H/2, 0);
+                
+                worldGridCurrent[worldGridCurrent.indexOf(i)][i.indexOf(j)] = 0; 
+            }
+        }
+    }
 }
 
 function updatePlayer() {
@@ -27,7 +39,6 @@ function drawPlayer() {
 function drawPlayerP() {
     p.drawP();
 }
-
 
 class PlayerClass {
     constructor(x, y, ang) {
@@ -86,8 +97,11 @@ class PlayerClass {
     }
 
     updateHealth() {
-        if (this.health < PLAYER_MAX_HEALTH) {
+        if (this.health < PLAYER_MAX_HEALTH && this.health > 0) {
             this.health ++;
+        }
+        if (this.health < 0) {
+            this.health = 0;
         }
 
     }
@@ -143,6 +157,15 @@ class PlayerClass {
         // drawText(this.ang, 20, 20);
     }
     drawP() {
-        drawTextP(this.health, 20, 80, "black", "80px arial");
+        drawTextP(this.health, 20, 80, "white", "80px arial");
+
+        drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "red", (0.41 - (this.health*2)/100));
+
+        if (this.health == 0) {
+            pause = true;
+            drawRectP(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, "red", 0.5);
+            drawTextP("GAME OVER", CANVAS_WIDTH/2, CANVAS_WIDTH/2, "black", "100px arial", "center", "center");
+
+        } 
     }
 }
