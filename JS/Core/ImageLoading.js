@@ -26,7 +26,7 @@ function srcToName(src) {
 function countLoaded() {
 	imagesToLoad--;
 	// console.log("Pics to load: " + picsToLoad);
-	if (imagesToLoad === 0) {
+	if (imagesToLoad == 0) {
 		startGame();
 	}
 }

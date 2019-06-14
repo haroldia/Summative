@@ -1,4 +1,5 @@
 body {
+<<<<<<< HEAD
   background-color: black;
 }
 
@@ -12,4 +13,7 @@ p {
 
 #goblin {
   float: right;
+=======
+  background-color: black
+>>>>>>> parent of 0eb38d0... I forgot to push
 }
