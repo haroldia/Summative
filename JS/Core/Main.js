@@ -19,10 +19,8 @@ document.getElementById("projection").setAttribute("height", CANVAS_HEIGHT);
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
     ctx = canvas.getContext('2d');
-
     canvasP = document.getElementById('projection');
     ctxP = canvasP.getContext('2d');
-    
     //loads all images and automatically starts game when done
     drawLoadingScreen(); //optional draw loading screen
 	loadImages();
@@ -31,21 +29,20 @@ window.onload = function() {
 function startGame() { //starts game (func called after images load)
 	setupInput();
 	setInterval(updateAll, 1000/FPS);
-    resetGame();
+  resetGame();
 }
 
 function updateAll() {
-    if (!pause){
-        for (var i in updateList){
-            updateList[i].f();
-        }
+  if (!pause){
+    for (var i in updateList){
+      updateList[i].f();
     }
-    
+  }
 }
 
 function resetGame() {
-    pause = false;
-    for (var i in resetList) {
-        resetList[i].f();
-    }
+  pause = false;
+  for (var i in resetList) {
+    resetList[i].f();
+  }
 }
