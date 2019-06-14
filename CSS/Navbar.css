@@ -1,0 +1,50 @@
+#Navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+
+#Navbar li {
+  float: left;
+}
+
+#Navbar li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#Navbar li a:hover, .dropdown:hover .dropbtn {
+  background-color: black;
+}
+
+#Navbar li.dropdown {
+  display: inline-block;
+}
+
+#Navbar .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: black;
+  min-width: 160px;
+}
+
+#Navbar .dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+#Navbar .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+#Navbar .active {
+  background-color: blue;
+}

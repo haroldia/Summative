@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en_US">
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="CSS/Navbar.css">
+  <link rel="stylesheet" type="text/css" href="CSS/CanvasAlign.css">
+  <link rel="stylesheet" type="text/css" href="CSS/index.css">
+</head>
+<body>
+  
+<div id="Navbar">
+  <ul>
+    <li><a href="index.htm">Information</a></li>
+    <li><a href="games.htm">Other Games</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)">More Levels</a>
+      <div class="dropdown-content">
+        <a href="Game1.htm">Level 1</a>
+        <a href="Game2.htm">Level 2</a>
+        <a href="Game3.htm">Level 3</a>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- <table>
+  <tr>
+    <td><canvas id="projection"></canvas></td>
+    <td><canvas id="gameCanvas"></canvas></td>
+  </tr>
+</table> -->
+<center><canvas id="projection"></canvas></center>
+<center><canvas id="gameCanvas"></canvas></center>
+
+<!--Scripts-->
+<script src="JS/Core/Main.js"></script>
+<script src="JS/Core/GraphicsCommon.js"></script>
+<script src="JS/Core/GraphicsProjection.js"></script>
+<script src="JS/Core/ImageLoading.js"></script>
+<script src="JS/Core/ImageList.js"></script>
+<script src="JS/Core/Input.js"></script>
+<script src="JS/Core/KeyCodes.js"></script>
+
+<script src="JS/Extensions/Interval.js"></script>
+<script src="JS/Extensions/FPSCounter.js"></script>
+<script src="JS/Extensions/Geometry.js"></script>
+<script src="JS/Extensions/Sounds.js"></script>
+
+
+<script src="JS/Extensions/TileGrid/Camera.js"></script>
+<script src="JS/Extensions/TileGrid/Map1.js"></script>
+<script src="JS/Extensions/TileGrid/Tiles.js"></script>
+
+<script src="JS/Game/player.js"></script>
+<script src="JS/Game/Raycast.js"></script>
+<script src="JS/Game/Projector.js"></script>
+<script src="JS/Game/Gun.js"></script>
+<script src="JS/Game/Enemy.js"></script>
+<script src="JS/Game/SpriteCast.js"></script>
+</body>
+</html>
