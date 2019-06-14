@@ -11,7 +11,7 @@ var soundList = [
 
 ];
 
-setSounds()
+setSounds();
 
 function setSounds() {
     for (var i in soundList) {
@@ -20,15 +20,15 @@ function setSounds() {
 }
 
 function playSound(sound) {
-    var sound1 = new Audio(sound);
-    sound1.play();
+    var sound = new Audio(sound);
+    sound.play();
 }
 
 
-setTimeout(loopMusic, 1000)
-setInterval(loopMusic, 147000)
+setTimeout(loopMusic, 1000);
+setInterval(loopMusic, 147000);
 
-
+// var music = soundList[0];
 
 function loopMusic() {
     playSound(music);
